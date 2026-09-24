@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadio Monumental</title>
+  <meta name="description" content="Historia, presente y momentos del Estadio Monumental de River Plate.">
+  <style>
+    /* ---------- Colores (tokens) ---------- */
+    :root {
+      --rojo: #d6001c;
+      --fondo: #ffffff;
+      --fondo-suave: #f6f4f2;
+      --texto: #1c1c1c;
+      --texto-suave: #5a5a5a;
+      --borde: #e4e0dc;
+      --banda-texto: #ffffff;
+    }
+    :root[data-tema="oscuro"] {
+      --rojo: #ff3347;
+      --fondo: #121212;
+      --fondo-suave: #1c1c1c;
+      --texto: #f1f1f1;
+      --texto-suave: #b4b4b4;
+      --borde: #2e2e2e;
+      --banda-texto: #121212;
+    }
+
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.65;
+      transition: background .3s, color .3s;
+    }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; }
+    .contenedor { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+
+    /* ---------- Cabecera con banda diagonal ---------- */
+    header {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 0 140px;
+      border-bottom: 1px solid var(--borde);
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      bottom: 28px; left: -10%;
+      width: 120%; height: 40px;
+      background: var(--rojo);
+      transform: rotate(-3deg);
+      z-index: 0;
+    }
+    header .contenedor { position: relative; z-index: 1; }
+    .antetitulo {
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-size: .8rem;
+      color: var(--rojo);
+      font-weight: 700;
+    }
+    header h1 { font-size: clamp(2.4rem, 8vw, 4.5rem); margin: 8px 0 12px; }
+    header p.frase { font-size: 1.15rem; color: var(--texto-suave); max-width: 520px; font-style: italic; }
+
+    /* Botón de tema */
+    #boton-tema {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 2;
+      background: var(--fondo);
+      color: var(--texto);
+      border: 1px solid var(--borde);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+    #boton-tema:hover { border-color: var(--rojo); }
+
+    /* Navegación */
+    nav { background: var(--fondo-suave); border-bottom: 1px solid var(--borde); }
+    nav ul { display: flex; gap: 24px; list-style: none; padding: 12px 0; overflow-x: auto; }
+    nav a { color: var(--texto); text-decoration: none; font-weight: 600; white-space: nowrap; }
+    nav a:hover { color: var(--rojo); }
+
+    /* ---------- Secciones ---------- */
+    section { padding: 56px 0; border-bottom: 1px solid var(--borde); }
+    section h2 {
+      font-size: clamp(1.7rem, 5vw, 2.3rem);
+      margin-bottom: 20px;
+      padding-left: 14px;
+      border-left: 6px solid var(--rojo);
+    }
+    section p { margin-bottom: 16px; }
+
+    .datos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 28px 0 8px;
+    }
+    .dato {
+      background: var(--fondo-suave);
+      border: 1px solid var(--borde);
+      border-top: 4px solid var(--rojo);
+      padding: 18px;
+    }
+    .dato strong { display: block; font-family: Georgia, serif; font-size: 1.8rem; color: var(--rojo); }
+    .dato span { color: var(--texto-suave); font-size: .92rem; }
+
+    .linea-tiempo { list-style: none; margin-top: 12px; }
+    .linea-tiempo li {
+      position: relative;
+      padding: 0 0 20px 28px;
+      border-left: 2px solid var(--borde);
+    }
+    .linea-tiempo li::before {
+      content: "";
+      position: absolute;
+      left: -7px; top: 6px;
+      width: 12px; height: 12px;
+      background: var(--rojo);
+      border-radius: 50%;
+    }
+    .linea-tiempo h3 { font-size: 1.15rem; }
+    .linea-tiempo .anio { color: var(--rojo); font-weight: 700; margin-right: 6px; }
+
+    /* ---------- Pie ---------- */
+    footer { padding: 32px 0 40px; color: var(--texto-suave); font-size: .9rem; }
+    footer p + p { margin-top: 6px; }
+
+    /* ---------- Celular ---------- */
+    @media (max-width: 600px) {
+      header { padding: 64px 0 110px; }
+      header::before { height: 28px; bottom: 32px; }
+      section { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button id="boton-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">🌙 Oscuro</button>
+    <div class="contenedor">
+      <p class="antetitulo">Club Atlético River Plate · Buenos Aires</p>
+      <h1>Estadio Monumental</h1>
+      <p class="frase">El estadio más grande de Sudamérica, donde Argentina fue campeona del mundo por primera vez.</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul class="contenedor">
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#hoy">El estadio hoy</a></li>
+      <li><a href="#momentos">Momentos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="historia">
+      <div class="contenedor">
+        <h2>Historia</h2>
+        <p>
+          El estadio lleva el nombre de <strong>Antonio Vespucio Liberti</strong>, el presidente de River
+          que impulsó su construcción en la década de 1930. El club buscaba una cancha propia a la altura
+          de su crecimiento, y eligió unos terrenos ganados al Río de la Plata en la zona de Belgrano y Núñez,
+          sobre la avenida Figueroa Alcorta.
+        </p>
+        <p>
+          Se inauguró el <strong>26 de mayo de 1938</strong> con un amistoso ante Peñarol de Montevideo,
+          que River ganó 3 a 1. Por su tamaño, enseguida le quedó el apodo de "Monumental". En su origen
+          tenía forma de herradura: uno de los lados quedaba abierto hacia el río.
+        </p>
+        <p>
+          Esa herradura se cerró recién en <strong>1958</strong>, con la tribuna que se financió en gran parte
+          con la venta de Omar Sívori a la Juventus. Por eso esa tribuna todavía lleva su nombre.
+        </p>
+      </div>
+    </section>
+
+    <section id="hoy">
+      <div class="contenedor">
+        <h2>El estadio hoy</h2>
+        <p>
+          Entre 2020 y 2024, River hizo la remodelación más grande de su historia. Se quitó la pista de
+          atletismo que rodeaba el campo, se bajó el nivel del terreno para agregar una nueva bandeja de
+          tribunas más cerca del césped y se renovaron los palcos y los accesos.
+        </p>
+        <p>
+          El resultado es un estadio más compacto y ruidoso, con el público pegado a la cancha. Desde 2024
+          lleva el nombre comercial de <strong>Estadio Mâs Monumental</strong> por un acuerdo de patrocinio,
+          aunque para todos sigue siendo "el Monumental".
+        </p>
+        <div class="datos">
+          <div class="dato"><strong>~85.000</strong><span>espectadores de capacidad, la mayor de Sudamérica</span></div>
+          <div class="dato"><strong>1938</strong><span>año de inauguración</span></div>
+          <div class="dato"><strong>Núñez</strong><span>barrio donde lo ubica la gente, aunque formalmente está en Belgrano</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="momentos">
+      <div class="contenedor">
+        <h2>Momentos</h2>
+        <ul class="linea-tiempo">
+          <li>
+            <h3><span class="anio">1978</span>Final del Mundial</h3>
+            <p>El 25 de junio, Argentina le ganó 3 a 1 a Países Bajos en tiempo suplementario y ganó su primera Copa del Mundo en el Monumental.</p>
+          </li>
+          <li>
+            <h3><span class="anio">2011</span>Final de la Copa América</h3>
+            <p>Uruguay le ganó 3 a 0 a Paraguay y se consagró campeón. El estadio ya había sido sede de ediciones anteriores del torneo.</p>
+          </li>
+          <li>
+            <h3><span class="anio">2022</span>Diez noches de Coldplay</h3>
+            <p>La banda británica hizo diez recitales con entradas agotadas, un récord para el estadio. El Monumental es el escenario de los shows más grandes que pasan por Argentina.</p>
+          </li>
+          <li>
+            <h3><span class="anio">Siempre</span>La casa de la Selección</h3>
+            <p>Es la sede habitual de la Selección Argentina en las eliminatorias y en los amistosos importantes. Además, dentro del estadio funciona el Museo River, que repasa la historia del club.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contenedor">
+      <p>Av. Figueroa Alcorta 7597, Ciudad de Buenos Aires.</p>
+      <p>Sitio de práctica sin fines comerciales. No es un sitio oficial del Club Atlético River Plate.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Cambia entre modo claro y oscuro y recuerda la elección.
+    const raiz = document.documentElement;
+    const boton = document.getElementById("boton-tema");
+
+    function aplicarTema(tema) {
+      if (tema === "oscuro") {
+        raiz.setAttribute("data-tema", "oscuro");
+        boton.textContent = "☀️ Claro";
+      } else {
+        raiz.removeAttribute("data-tema");
+        boton.textContent = "🌙 Oscuro";
+      }
+    }
+
+    let guardado = null;
+    try { guardado = localStorage.getItem("tema"); } catch (e) {}
+    const prefiereOscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    aplicarTema(guardado || (prefiereOscuro ? "oscuro" : "claro"));
+
+    boton.addEventListener("click", () => {
+      const nuevo = raiz.getAttribute("data-tema") === "oscuro" ? "claro" : "oscuro";
+      aplicarTema(nuevo);
+      try { localStorage.setItem("tema", nuevo); } catch (e) {}
+    });
+  </script>
+</body>
+</html>
