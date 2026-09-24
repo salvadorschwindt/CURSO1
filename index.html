@@ -8,7 +8,7 @@
   <style>
     /* ---------- Colores (tokens) ---------- */
     :root {
-      --rojo: #d6001c;
+      --acento: #0057b8;
       --fondo: #ffffff;
       --fondo-suave: #f6f4f2;
       --texto: #1c1c1c;
@@ -17,7 +17,7 @@
       --banda-texto: #ffffff;
     }
     :root[data-tema="oscuro"] {
-      --rojo: #ff3347;
+      --acento: #4d9fff;
       --fondo: #121212;
       --fondo-suave: #1c1c1c;
       --texto: #f1f1f1;
@@ -51,7 +51,7 @@
       position: absolute;
       bottom: 28px; left: -10%;
       width: 120%; height: 40px;
-      background: var(--rojo);
+      background: var(--acento);
       transform: rotate(-3deg);
       z-index: 0;
     }
@@ -60,7 +60,7 @@
       text-transform: uppercase;
       letter-spacing: .15em;
       font-size: .8rem;
-      color: var(--rojo);
+      color: var(--acento);
       font-weight: 700;
     }
     header h1 { font-size: clamp(2.4rem, 8vw, 4.5rem); margin: 8px 0 12px; }
@@ -79,13 +79,13 @@
       font-size: .9rem;
       cursor: pointer;
     }
-    #boton-tema:hover { border-color: var(--rojo); }
+    #boton-tema:hover { border-color: var(--acento); }
 
     /* Navegación */
     nav { background: var(--fondo-suave); border-bottom: 1px solid var(--borde); }
     nav ul { display: flex; gap: 24px; list-style: none; padding: 12px 0; overflow-x: auto; }
     nav a { color: var(--texto); text-decoration: none; font-weight: 600; white-space: nowrap; }
-    nav a:hover { color: var(--rojo); }
+    nav a:hover { color: var(--acento); }
 
     /* ---------- Secciones ---------- */
     section { padding: 56px 0; border-bottom: 1px solid var(--borde); }
@@ -93,7 +93,7 @@
       font-size: clamp(1.7rem, 5vw, 2.3rem);
       margin-bottom: 20px;
       padding-left: 14px;
-      border-left: 6px solid var(--rojo);
+      border-left: 6px solid var(--acento);
     }
     section p { margin-bottom: 16px; }
 
@@ -106,10 +106,10 @@
     .dato {
       background: var(--fondo-suave);
       border: 1px solid var(--borde);
-      border-top: 4px solid var(--rojo);
+      border-top: 4px solid var(--acento);
       padding: 18px;
     }
-    .dato strong { display: block; font-family: Georgia, serif; font-size: 1.8rem; color: var(--rojo); }
+    .dato strong { display: block; font-family: Georgia, serif; font-size: 1.8rem; color: var(--acento); }
     .dato span { color: var(--texto-suave); font-size: .92rem; }
 
     .linea-tiempo { list-style: none; margin-top: 12px; }
@@ -123,11 +123,11 @@
       position: absolute;
       left: -7px; top: 6px;
       width: 12px; height: 12px;
-      background: var(--rojo);
+      background: var(--acento);
       border-radius: 50%;
     }
     .linea-tiempo h3 { font-size: 1.15rem; }
-    .linea-tiempo .anio { color: var(--rojo); font-weight: 700; margin-right: 6px; }
+    .linea-tiempo .anio { color: var(--acento); font-weight: 700; margin-right: 6px; }
 
     /* ---------- Pie ---------- */
     footer { padding: 32px 0 40px; color: var(--texto-suave); font-size: .9rem; }
@@ -191,14 +191,24 @@
           copas nacionales, encuentros de la Selección y definiciones internacionales.
         </p>
         <p>
-          Lo administra el gobierno provincial y lo usan los clubes cordobeses, sobre todo Talleres, que juega
-          ahí de local. También recibe recitales y otros eventos masivos, porque es el escenario más grande de
-          la provincia.
+          Lo administra el gobierno de la Provincia de Córdoba, no un club. Por eso funciona distinto a la
+          mayoría de las canchas de Argentina: se alquila a quien lo necesite. Su inquilino fijo es
+          <strong>Talleres</strong>, que juega ahí de local desde 2011 porque su propio estadio, el "Cementerio
+          de los Elefantes", quedó chico para su nivel actual. También lo usan <strong>Belgrano</strong> e
+          <strong>Instituto</strong> cuando un partido exige más capacidad o control que sus estadios propios,
+          y es la sede habitual de la <strong>Selección Argentina</strong> en Córdoba, tanto en eliminatorias
+          como en amistosos.
+        </p>
+        <p>
+          Fuera del fútbol, recibe los recitales más grandes que pasan por la provincia y es una de las sedes
+          que Argentina ofrece para picos de demanda: finales de copas nacionales, partidos de definición y,
+          en 2011, varios encuentros de la Copa América que organizó el país.
         </p>
         <div class="datos">
-          <div class="dato"><strong>~57.000</strong><span>espectadores de capacidad</span></div>
+          <div class="dato"><strong>~57.000</strong><span>espectadores de capacidad, tras la ampliación de 2011</span></div>
           <div class="dato"><strong>1978</strong><span>año de inauguración, para el Mundial</span></div>
           <div class="dato"><strong>2010</strong><span>año en que dejó de llamarse Chateau Carreras</span></div>
+          <div class="dato"><strong>Talleres</strong><span>club que juega ahí de local desde 2011</span></div>
         </div>
       </div>
     </section>
