@@ -133,6 +133,29 @@
     footer { padding: 32px 0 40px; color: var(--texto-suave); font-size: .9rem; }
     footer p + p { margin-top: 6px; }
 
+    /* ---------- Easter egg ---------- */
+    #easter-egg { cursor: pointer; }
+    #easter-egg:hover { text-decoration: underline wavy var(--acento); }
+
+    #copa-easter-egg {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(6rem, 30vw, 14rem);
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(.6) rotate(-8deg);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      z-index: 10;
+    }
+    #copa-easter-egg.visible {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
     /* ---------- Celular ---------- */
     @media (max-width: 600px) {
       header { padding: 64px 0 110px; }
@@ -147,7 +170,7 @@
     <button id="boton-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">🌙 Oscuro</button>
     <div class="contenedor">
       <p class="antetitulo">Córdoba · Argentina</p>
-      <h1>Estadio Mario Alberto Kempes</h1>
+      <h1>Estadio Mario Alberto <span id="easter-egg" role="button" tabindex="0">Kempes</span></h1>
       <p class="frase">Nació para el Mundial 78 como el Chateau Carreras y hoy lleva el nombre del goleador de aquella Copa.</p>
     </div>
   </header>
@@ -274,6 +297,44 @@
       aplicarTema(nuevo);
       try { localStorage.setItem("tema", nuevo); } catch (e) {}
     });
+
+    // Easter egg: al tocar "Kempes", copa que aparece y se desvanece a los
+    // 5 segundos. Sin sonido.
+    (() => {
+      const disparador = document.getElementById("easter-egg");
+      if (!disparador) return;
+
+      let reproduciendo = false; // decide: si ya está activo, ignora el disparo
+
+      function activarEasterEgg() {
+        if (reproduciendo) return; // decide: no superponer si ya está activo
+        reproduciendo = true;
+
+        // cambia lo que se ve: crea la copa y la muestra
+        const copa = document.createElement("div");
+        copa.id = "copa-easter-egg";
+        copa.textContent = "🏆";
+        copa.setAttribute("aria-hidden", "true");
+        document.body.appendChild(copa);
+        requestAnimationFrame(() => copa.classList.add("visible"));
+
+        // a los 5 segundos: desvanece la copa (arranca 1.2s antes) y limpia todo
+        setTimeout(() => copa.classList.remove("visible"), 3800);
+        setTimeout(() => {
+          copa.remove();
+          reproduciendo = false;
+        }, 5000);
+      }
+
+      // escucha: clic o teclado, para que también funcione sin mouse
+      disparador.addEventListener("click", activarEasterEgg);
+      disparador.addEventListener("keydown", (evento) => {
+        if (evento.key === "Enter" || evento.key === " ") {
+          evento.preventDefault();
+          activarEasterEgg();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
