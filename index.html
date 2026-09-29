@@ -298,8 +298,8 @@
       try { localStorage.setItem("tema", nuevo); } catch (e) {}
     });
 
-    // Easter egg: al tocar "Kempes", grito de gol + copa que aparece y se
-    // desvanece a los 5 segundos.
+    // Easter egg: al tocar "Kempes", copa que aparece y se desvanece a los
+    // 5 segundos. Sin sonido.
     (() => {
       const disparador = document.getElementById("easter-egg");
       if (!disparador) return;
@@ -307,7 +307,7 @@
       let reproduciendo = false; // decide: si ya está activo, ignora el disparo
 
       function activarEasterEgg() {
-        if (reproduciendo) return; // decide: no superponer si ya está sonando
+        if (reproduciendo) return; // decide: no superponer si ya está activo
         reproduciendo = true;
 
         // cambia lo que se ve: crea la copa y la muestra
@@ -318,70 +318,10 @@
         document.body.appendChild(copa);
         requestAnimationFrame(() => copa.classList.add("visible"));
 
-        // cambia lo que se oye: arma un grito de gol con la Web Audio API
-        let audioCtx = null;
-        try {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          const gainNode = audioCtx.createGain();
-          gainNode.gain.value = 0;
-          gainNode.connect(audioCtx.destination);
-
-          // rugido de multitud: ruido blanco pasado por un filtro que varía
-          const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 5, audioCtx.sampleRate);
-          const datos = buffer.getChannelData(0);
-          for (let i = 0; i < datos.length; i++) datos[i] = Math.random() * 2 - 1;
-          const ruido = audioCtx.createBufferSource();
-          ruido.buffer = buffer;
-
-          const filtro = audioCtx.createBiquadFilter();
-          filtro.type = "bandpass";
-          filtro.frequency.value = 900;
-          filtro.Q.value = 0.7;
-
-          const lfo = audioCtx.createOscillator();
-          const lfoGain = audioCtx.createGain();
-          lfo.frequency.value = 3;
-          lfoGain.gain.value = 400;
-          lfo.connect(lfoGain);
-          lfoGain.connect(filtro.frequency);
-
-          ruido.connect(filtro);
-          filtro.connect(gainNode);
-
-          // grito ascendente ("¡goooool!") en el arranque
-          const grito = audioCtx.createOscillator();
-          grito.type = "sawtooth";
-          const gritoGain = audioCtx.createGain();
-          grito.frequency.setValueAtTime(220, audioCtx.currentTime);
-          grito.frequency.linearRampToValueAtTime(440, audioCtx.currentTime + 0.6);
-          gritoGain.gain.setValueAtTime(0.5, audioCtx.currentTime);
-          gritoGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.2);
-          grito.connect(gritoGain);
-          gritoGain.connect(gainNode);
-
-          const inicio = audioCtx.currentTime;
-          ruido.start(inicio);
-          lfo.start(inicio);
-          grito.start(inicio);
-
-          // volumen: entra de golpe y baja gradual hasta apagarse en el segundo 5
-          gainNode.gain.setValueAtTime(0, inicio);
-          gainNode.gain.linearRampToValueAtTime(0.9, inicio + 0.1);
-          gainNode.gain.setValueAtTime(0.9, inicio + 3.8);
-          gainNode.gain.linearRampToValueAtTime(0, inicio + 5);
-
-          ruido.stop(inicio + 5);
-          lfo.stop(inicio + 5);
-          grito.stop(inicio + 1.3);
-        } catch (e) {
-          // si el navegador bloquea el audio, el easter egg sigue de forma visual
-        }
-
         // a los 5 segundos: desvanece la copa (arranca 1.2s antes) y limpia todo
         setTimeout(() => copa.classList.remove("visible"), 3800);
         setTimeout(() => {
           copa.remove();
-          if (audioCtx) audioCtx.close();
           reproduciendo = false;
         }, 5000);
       }
