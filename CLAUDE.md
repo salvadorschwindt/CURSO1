@@ -18,3 +18,7 @@ Mi trabajo es decidir, pedir, revisar y verificar.
   de arreglarlo.
 - Si lo que te pido es ambiguo, preguntá.
 - Hablame en español.
+- Nunca hagas commits en main. Cada cambio va en una rama con un nombre
+  que diga qué es, y llega a main solo por pull request, que mergeo yo
+  después de revisarlo.
+- Cada vez que termines algo, decime en qué rama estoy parado.
